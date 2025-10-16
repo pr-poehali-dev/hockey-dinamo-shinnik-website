@@ -8,23 +8,26 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState('calendar');
 
   const games = [
-    { id: 1, date: '20.10.2024', time: '19:00', opponent: 'Торпедо', location: 'Домашний', score: null, status: 'upcoming' },
-    { id: 2, date: '24.10.2024', time: '18:30', opponent: 'Спартак', location: 'Выездной', score: null, status: 'upcoming' },
-    { id: 3, date: '27.10.2024', time: '19:00', opponent: 'ЦСКА', location: 'Домашний', score: null, status: 'upcoming' },
-    { id: 4, date: '15.10.2024', time: '19:00', opponent: 'Локомотив', location: 'Выездной', score: '3:2', status: 'win' },
-    { id: 5, date: '12.10.2024', time: '18:30', opponent: 'СКА', location: 'Домашний', score: '1:4', status: 'loss' },
-    { id: 6, date: '08.10.2024', time: '19:00', opponent: 'Авангард', location: 'Выездной', score: '2:2', status: 'draw' },
+    { id: 1, date: '01.09.2024', opponent: 'Белые медведи', score: '3:0', status: 'win', note: '' },
+    { id: 2, date: '08.09.2024', opponent: 'Кузнецкие медведи', score: '2:1', status: 'win', note: '' },
+    { id: 3, date: '15.09.2024', opponent: 'Югра', score: '2:0', status: 'win', note: '' },
+    { id: 4, date: '22.09.2024', opponent: 'Локо', score: '6:5', status: 'win', note: '(ОТ)' },
+    { id: 5, date: '29.09.2024', opponent: 'Алмаз', score: '5:0', status: 'win', note: '' },
+    { id: 6, date: '06.10.2024', opponent: 'Сибирские снайперы', score: '2:1', status: 'win', note: '(Б)' },
+    { id: 7, date: '13.10.2024', opponent: 'ДСПб', score: 'ТП', status: 'loss', note: 'Старый календарь' },
+    { id: 8, date: '20.10.2024', opponent: 'Стальные лисы', score: '0:3', status: 'loss', note: 'Техн. поражение' },
   ];
 
   const roster = [
-    { id: 1, number: 91, name: 'Александр Иванов', position: 'Нападающий', age: 28 },
-    { id: 2, number: 27, name: 'Дмитрий Петров', position: 'Защитник', age: 25 },
-    { id: 3, number: 1, name: 'Игорь Смирнов', position: 'Вратарь', age: 30 },
-    { id: 4, number: 17, name: 'Михаил Козлов', position: 'Нападающий', age: 24 },
-    { id: 5, number: 44, name: 'Сергей Волков', position: 'Защитник', age: 27 },
-    { id: 6, number: 10, name: 'Андрей Морозов', position: 'Нападающий', age: 26 },
-    { id: 7, number: 5, name: 'Николай Лебедев', position: 'Защитник', age: 29 },
-    { id: 8, number: 30, name: 'Владимир Соколов', position: 'Вратарь', age: 32 },
+    { id: 1, number: 5, name: 'Unnamed', position: 'Вратарь' },
+    { id: 2, number: 99, name: 'Morfyy', position: 'Вратарь' },
+    { id: 3, number: 19, name: 'Ylokz', position: 'Защитник' },
+    { id: 4, number: 35, name: 'николаич', position: 'Защитник' },
+    { id: 5, number: 53, name: 'quantum', position: 'Нападающий' },
+    { id: 6, number: 3, name: 'estriper', position: 'Нападающий' },
+    { id: 7, number: 21, name: 'Gazash', position: 'Нападающий' },
+    { id: 8, number: 54, name: 'крико', position: 'Нападающий' },
+    { id: 9, number: 0, name: 'huksyy', position: 'Нападающий' },
   ];
 
   const standings = [
@@ -78,7 +81,7 @@ const Index = () => {
           <p className="text-xl md:text-2xl text-secondary mb-8">Хоккейный Клуб</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Badge className="px-6 py-2 text-lg bg-primary/90 hover:bg-primary">Сезон 2024/2025</Badge>
-            <Badge className="px-6 py-2 text-lg bg-secondary/90 hover:bg-secondary text-secondary-foreground">3 место в лиге</Badge>
+            <Badge className="px-6 py-2 text-lg bg-green-500/90 hover:bg-green-500 text-white">8 побед из 8 игр</Badge>
           </div>
         </div>
       </div>
@@ -123,61 +126,41 @@ const Index = () => {
             </h2>
             
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-secondary">Предстоящие матчи</h3>
-              <div className="grid gap-4">
-                {games.filter(g => g.status === 'upcoming').map(game => (
-                  <Card key={game.id} className="p-6 hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/20">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                      <div className="flex items-center gap-4">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-primary">{game.date.split('.')[0]}</div>
-                          <div className="text-sm text-muted-foreground">{game.date.split('.')[1]}.{game.date.split('.')[2]}</div>
-                        </div>
-                        <div className="h-16 w-px bg-border"></div>
-                        <div>
-                          <div className="text-2xl font-bold mb-1">Динамо Шинник vs {game.opponent}</div>
-                          <div className="flex gap-3 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Icon name="Clock" size={16} />
-                              {game.time}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Icon name="MapPin" size={16} />
-                              {game.location}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <Badge className="bg-primary/20 text-primary border-primary/50 px-4 py-2">
-                        Предстоящий
-                      </Badge>
-                    </div>
-                  </Card>
-                ))}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-semibold text-secondary">Регулярный чемпионат</h3>
+                <div className="flex gap-4 items-center">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/50 px-4 py-2 text-lg">
+                    6 побед
+                  </Badge>
+                  <Badge className="bg-red-500/20 text-red-400 border-red-500/50 px-4 py-2 text-lg">
+                    2 поражения
+                  </Badge>
+                </div>
               </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold mb-4 text-secondary">Прошедшие матчи</h3>
+              <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
+                <p className="text-lg text-center">
+                  <span className="font-bold text-primary">8 из 8 успешных игр</span> • Осталось 9 игр • <span className="text-green-400 font-bold">Цель: 9/9</span>
+                </p>
+              </div>
               <div className="grid gap-4">
-                {games.filter(g => g.status !== 'upcoming').map(game => (
+                {games.map(game => (
                   <Card key={game.id} className="p-6 hover:border-accent transition-all duration-300">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="text-center">
+                        <div className="text-center min-w-[80px]">
                           <div className="text-2xl font-bold">{game.date.split('.')[0]}</div>
                           <div className="text-xs text-muted-foreground">{game.date.split('.')[1]}.{game.date.split('.')[2]}</div>
                         </div>
                         <div className="h-16 w-px bg-border"></div>
                         <div>
                           <div className="text-xl font-bold mb-1">Динамо Шинник vs {game.opponent}</div>
-                          <div className="text-sm text-muted-foreground">{game.location}</div>
+                          {game.note && <div className="text-sm text-muted-foreground italic">{game.note}</div>}
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="text-3xl font-bold">{game.score}</div>
                         <Badge className={getStatusColor(game.status)}>
-                          {game.status === 'win' ? 'Победа' : game.status === 'loss' ? 'Поражение' : 'Ничья'}
+                          {game.status === 'win' ? 'Победа' : 'Поражение'}
                         </Badge>
                       </div>
                     </div>
@@ -203,11 +186,10 @@ const Index = () => {
                     <Card key={player.id} className="p-6 hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/20">
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-                          <span className="text-2xl font-bold">{player.number}</span>
+                          <span className="text-2xl font-bold">{player.number === 0 ? '-' : player.number}</span>
                         </div>
                         <div>
                           <div className="text-xl font-bold mb-1">{player.name}</div>
-                          <div className="text-sm text-muted-foreground">{player.age} лет</div>
                         </div>
                       </div>
                     </Card>
